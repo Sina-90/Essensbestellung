@@ -93,3 +93,5 @@ async function showAdmin() {
 }
 
 renderMeals();
+window.submitOrder = submitOrder;
+window.showAdmin = showAdmin;
