@@ -1,6 +1,12 @@
+console.log("app gestartet");
+
 const SUPABASE_URL = "https://sbkuqafnxptdibsuqtfc.supabase.co"
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNia3VxYWZueHB0ZGlic3VxdGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODQ3ODIsImV4cCI6MjA5ODU2MDc4Mn0.PUpjutvvbQo5H2G9kaHUhbxGnJ6GmrnvhRWYMh9ZUYc";
+
+console.log(window.supabase);
+
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 const meals = [
   "Schweineschnitzel mit Bratensauce, Nudeln und Salat",
   "Putengulasch mit Spätzle und Salat",
