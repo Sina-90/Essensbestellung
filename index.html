@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Essensbestellung</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>🍽️ Essensbestellung</h1>
+
+    <label>Name</label>
+    <input id="name" type="text" placeholder="Dein Name">
+
+    <h2>Gericht wählen</h2>
+
+    <div id="meals"></div>
+
+    <button onclick="submitOrder()">Bestellung absenden</button>
+
+    <h2>Admin Ansicht</h2>
+    <button onclick="showAdmin()">Auswertung anzeigen</button>
+
+    <div id="admin"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
