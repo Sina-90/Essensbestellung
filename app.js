@@ -1,13 +1,15 @@
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
-
+// ======================
+// SUPABASE SETUP
+// ======================
 const SUPABASE_URL = "https://sbkuqafnxptdibsuqtfc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNia3VxYWZueHB0ZGlic3VxdGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODQ3ODIsImV4cCI6MjA5ODU2MDc4Mn0.PUpjutvvbQo5H2G9kaHUhbxGnJ6GmrnvhRWYMh9ZUYc";
+const SUPABASE_KEY = "DEIN_ANON_KEY_HIER";
 
-console.log(window.supabase);
+// WICHTIG: NICHT "supabase" nennen → sonst Konflikte vermeiden
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-//Test: anderer Variablename
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
+// ======================
+// DATEN
+// ======================
 const meals = [
   "Schweineschnitzel mit Bratensauce, Nudeln und Salat",
   "Putengulasch mit Spätzle und Salat",
@@ -19,6 +21,9 @@ const meals = [
 
 let selectedMeal = null;
 
+// ======================
+// UI: GERICHTE ANZEIGEN
+// ======================
 function renderMeals() {
   const container = document.getElementById("meals");
   container.innerHTML = "";
@@ -38,7 +43,9 @@ function renderMeals() {
   });
 }
 
-// 🔥 BESTELLUNG IN DATENBANK
+// ======================
+// BESTELLUNG SENDEN
+// ======================
 async function submitOrder() {
   const name = document.getElementById("name").value;
 
@@ -47,15 +54,15 @@ async function submitOrder() {
     return;
   }
 
-  const { error } = await supabase
+  const { error } = await client
     .from("orders")
     .insert([
       { name: name, meal: selectedMeal }
     ]);
 
   if (error) {
-    alert("Fehler beim Speichern!");
     console.error(error);
+    alert("Fehler beim Speichern!");
     return;
   }
 
@@ -66,11 +73,13 @@ async function submitOrder() {
   document.querySelectorAll(".meal").forEach(m => m.classList.remove("selected"));
 }
 
-// 🔥 ADMIN DATEN LADEN
+// ======================
+// ADMIN AUSWERTUNG
+// ======================
 async function showAdmin() {
   const admin = document.getElementById("admin");
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from("orders")
     .select("*");
 
@@ -80,7 +89,6 @@ async function showAdmin() {
   }
 
   const count = {};
-
   let html = "<h3>📋 Alle Bestellungen</h3>";
 
   data.forEach(o => {
@@ -97,6 +105,11 @@ async function showAdmin() {
   admin.innerHTML = html;
 }
 
+// ======================
+// START
+// ======================
 renderMeals();
+
+// global verfügbar machen
 window.submitOrder = submitOrder;
 window.showAdmin = showAdmin;
